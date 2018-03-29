@@ -9,9 +9,12 @@
                #:uiop
                #:alexandria
                #:anaphora
-               #:cl-arrows)
+               #:cl-arrows
+               #:split-sequence
+               #:cl-ppcre)
   :serial t
   :components ((:file "package")
                (:file "filesystem")
+               (:file "string")
                (:file "csharp")
                (:file "looset")))

@@ -9,6 +9,8 @@
   "List of well-known directories that we usually want to skip")
 
 (defun main (args)
-  "Dummy main program. Only prints out the command line arguments."
-  (dolist (file (recursivly-find-csharp-files (truename ".")))
-    (print file)))
+  (dolist (classes-by-file (recursivly-extract-classes-from-file-by-regex (truename ".")))
+    (destructuring-bind (file classes)
+        classes-by-file
+      (when classes
+        (format t "~A;~{~A~^;~}~%" file classes)))))

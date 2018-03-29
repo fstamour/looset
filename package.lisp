@@ -4,7 +4,8 @@
   (:use #:cl
         #:alexandria
         #:cl-arrows
-        #:anaphora)
+        #:anaphora
+        #:split-sequence)
   (:import-from #:uiop
                 #:while-collecting
                 #:collect-sub*directories
