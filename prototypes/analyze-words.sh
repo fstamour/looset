@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 # TODO This has to be run manually first (in the right directory)
-# TODO ensure rg is available when automating this
+# TODO ensure rg (ripgrep) is available when automating this
 # rg -t cs '\w+' -woN --color never | sort | uniq -c > raw_words_with_counts
+
+# The flag --no-filename supress the name of the file
+# rg -t cs '\w+' -woN --no-filename --color never | sort | uniq -c > raw_words_with_counts
 
 # i.e. the words without the count
 frequent_words_only() {
