@@ -43,12 +43,22 @@ to_lower_case() {
 }
 
 
+statistics() {
+  wc -l "$1"
+  echo "Occurences / Length of words"
+  awk '{ print length($0) }' "$1" | sort | uniq -c | sort -n -k2
+}
+
+
 
 frequent_words_only > raw_words
 
 cat raw_words | filter_noise | trim > filtered_words
 cat filtered_words | replace_space_by_newline | filter_noise | split_by_case_change | to_lower_case | sort -u > word_groups
 cat word_groups | replace_space_by_newline | filter_noise | sort -u > words
+
+statistics words
+
 
 # TODO Filter out stuff that didn't appear often
 
