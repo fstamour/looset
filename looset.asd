@@ -11,7 +11,9 @@
                #:anaphora
                #:cl-arrows
                #:split-sequence
-               #:cl-ppcre)
+               #:cl-ppcre
+               #:unix-opts
+               #:string-case)
   :serial t
   :components ((:file "package")
                (:file "filesystem")
