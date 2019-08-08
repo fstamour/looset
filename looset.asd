@@ -15,8 +15,11 @@
                #:unix-opts
                #:string-case)
   :serial t
-  :components ((:file "package")
-               (:file "filesystem")
-               (:file "string")
-               (:file "csharp")
-               (:file "looset")))
+  :components
+  ((:module "src"
+    :components
+    ((:file "package")
+     (:file "filesystem")
+     (:file "string")
+     (:file "csharp")
+     (:file "looset")))))
