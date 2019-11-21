@@ -23,15 +23,32 @@
                      include-file-types)
   "Returns a list of files that matches the critera."
   (while-collecting
-   (collect-file)
-   (collect-sub*directories
-    root-directory
-    t
-    (lambda (pathname)
-      (-> pathname
-          (skip-directories test skip-directories)))
-    #'(lambda (directory)
-        (dolist (file (directory-files directory))
-          (when (pathname-type-member file include-file-types test)
-            (collect-file file)))))))
+      (collect-file)
+    (map-files root-directory
+               #'(lambda (file)
+                   (collect-file file))
+               :test test
+               :skip-directories skip-directories
+               :include-file-types include-file-types)))
+
+(defun map-files (root-directory callback
+                  &key (test
+                        #+windows #'string-equal
+                        #-windows #'string=)
+                    (skip-directories *default-skipped-directories*)
+                    include-file-types)
+  "Calls \"callback\" on each files that matches the critera."
+  (collect-sub*directories
+   root-directory
+   t
+   (lambda (pathname)
+     (-> pathname
+         (skip-directories test skip-directories)))
+   #'(lambda (directory)
+       (dolist (file (directory-files directory))
+         (if include-file-types
+             (when
+                 (pathname-type-member file include-file-types test)
+               (funcall callback file))
+             (funcall callback file))))))
 
